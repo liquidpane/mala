@@ -29,5 +29,7 @@ local ast = parser.parse(tokens)
 local evaluatedAst = astEvaluator.evaluate(ast)
 local ir = irGenerator.generate(evaluatedAst)
 
+local debug = arg[2] and arg[2] == "--debug"
+
 local generator = require("src.fileGenerators.x86_64_linux")
-generator.generate(ir, arg[1])
+generator.generate(ir, arg[1], debug)
