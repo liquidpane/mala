@@ -83,7 +83,7 @@ function generator.generate(ir, fileName, debug)
 				table.insert(irText, "command = " .. token.command)
 			end
 		end
-		local f = assert(io.open(fileTag .. ".mal", "w"))
+		local f = assert(io.open(fileTag .. ".malair", "w"))
 		f:write(table.concat(irText, "\n"))
 		f:close()
 	end
