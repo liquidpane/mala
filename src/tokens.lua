@@ -4,8 +4,12 @@ local TOKENS = {
 	arrow = "ARROW",
 	semicolon = "SEMICOLON",
 
+	func = "FUNCTION",
+
 	const = "CONST",
 	identifier = "IDENTIFIER",
+	createConst = "CREATE_CONST",
+	initializedConst = "INITIALIZED_CONST",
 
 	number = "NUMBER",
 	string = "STRING",
