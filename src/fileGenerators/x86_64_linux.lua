@@ -2,7 +2,7 @@ local IR_COMMANDS = require("src.irCommands")
 
 local generator = {}
 
-function generator.generate(ir, fileName)
+function generator.generate(ir, fileName, debug)
 	local data = {}
 
 	table.insert(data, "section .data")
@@ -69,6 +69,24 @@ function generator.generate(ir, fileName)
 
 	os.execute("nasm -f elf64 " .. fileTag .. ".asm -o " .. fileTag .. ".o")
 	os.execute("gcc " .. fileTag .. ".o -no-pie -o " .. fileTag)
+
+	if not debug then
+		os.remove(fileTag .. ".asm")
+		os.remove(fileTag .. ".o")
+	else
+		--put the ir into a file so you can debug it without having to pretty print the ir table
+		local irText = {}
+		for _, token in ipairs(ir) do
+			if token.value then
+				table.insert(irText, "command = " .. token.command .. ", value = " .. token.value)
+			else
+				table.insert(irText, "command = " .. token.command)
+			end
+		end
+		local f = assert(io.open(fileTag .. ".mal", "w"))
+		f:write(table.concat(irText, "\n"))
+		f:close()
+	end
 end
 
 return generator
