@@ -85,6 +85,10 @@ end
 
 function evaluateLevel(level)
 	local leastImportant, leastImportantI = getLeastImportant(level)
+	if not leastImportant then
+		return { right = level[2], left = level[1] }
+	end
+
 	local left = getLeft(level, leastImportantI)
 	local right = getRight(level, leastImportantI)
 

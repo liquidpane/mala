@@ -1,4 +1,5 @@
 local TOKENS = require("src.tokens")
+local BUILT_IN_FUNCTION_LIST = require("src.builtInFunctionList")
 
 local lexer = {}
 
@@ -37,6 +38,11 @@ function lexer.tokenize(content)
 			if word == "const" then
 				table.insert(tokens, {
 					type = TOKENS.const,
+				})
+			elseif BUILT_IN_FUNCTION_LIST[word] then
+				table.insert(tokens, {
+					type = TOKENS.func,
+					value = word,
 				})
 			else
 				table.insert(tokens, {
